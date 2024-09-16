@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <signal.h>
+#include <sys/types.h>
 # include "libft.h"
 # include "ft_printf.h"
 

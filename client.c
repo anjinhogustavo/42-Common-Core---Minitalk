@@ -12,7 +12,7 @@
 
 #include "minitalk.h"
 
-void	send_signal(int pid, char *word)
+void	send_signal(pid_t pid, char *word)
 {
 	int	bit;
 	int	i;
@@ -24,12 +24,14 @@ void	send_signal(int pid, char *word)
 		while (bit < 8)
 		{
 			// se minha palavra encriptada com bitwise for igual 0 bit envia pra sinal 1
-			if (word[i] == 0)
+			if (word[i] % 2 == 0)
 				kill(pid, SIGUSR1);
 			// se minha palavra encriptada com bitwise for igual 1 bit envia pra sinal 2
 			else
 				kill(pid, SIGUSR2);
 			bit++;
+			usleep(250); // Aguarda um curto período
+			word[i] = word[i] / 2;
 		}
 		i++;
 	}
@@ -37,4 +39,13 @@ void	send_signal(int pid, char *word)
 
 int	main(int ac, char **av)
 {
+	pid_t	pid;
+	//porque diferente de 3 ? ./a.out PID MENSAGEM
+	if(ac != 3)
+		ft_printf("ERROR!Number of Arguments not valid!\n");
+	else
+	{
+		pid = ft_atoi(av[1]); // recebe o idprocess (PID = indica processo alvo no sistema)
+		send_signal(pid, av[2]); //mensagem sendo enviada bit a bit
+	}
 }

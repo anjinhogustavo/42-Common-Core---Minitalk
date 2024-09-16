@@ -12,9 +12,12 @@
 
 #include "minitalk.h"
 
-void	receive_signals()
+void	receive_signals(int pid)
 {
 
 }
 
 int	main(int ac,char **av)
+{
+
+}
