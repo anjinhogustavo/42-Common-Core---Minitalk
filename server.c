@@ -14,10 +14,22 @@
 
 void	receive_signals(int pid)
 {
-
+	while(SIGUSR2 && SIGUSR1)
+	{
+		// se meu sinal for 1
+		if(pid, SIGUSR2)
+		{
+			// coonverto para string
+		}
+		// se meu sinal for 0
+		if(pid, SIGUSR1)
+		{
+			// converto para string
+		}
+	}
 }
 
-int	main(int ac,char **av)
+int main(int ac, char **av)
 {
-
+	ft_printf("Welcome to my ganjinho server:");
 }
