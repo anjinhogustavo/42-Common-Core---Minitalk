@@ -14,8 +14,8 @@
 
 void	send_signal(pid_t pid, char *word)
 {
-	int	bit;
-	int	i;
+	unsigned int	bit;
+	unsigned int	i;
 
 	i = 0;
 	while (word[i])
@@ -30,7 +30,7 @@ void	send_signal(pid_t pid, char *word)
 			else
 				kill(pid, SIGUSR1);
 			bit++;
-			usleep(250); // Aguarda um curto período
+			usleep(200); // Aguarda um curto período
 		}
 		i++;
 	}

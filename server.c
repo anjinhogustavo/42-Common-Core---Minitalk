@@ -12,24 +12,49 @@
 
 #include "minitalk.h"
 
-void	receive_signals(int pid)
+void	convert_char(unsigned int *array)
 {
-	while(SIGUSR2 && SIGUSR1)
+	unsigned char	character = 0;
+	int				i = 0;
+
+	while (i < 8)
 	{
-		// se meu sinal for 1
-		if(pid, SIGUSR2)
-		{
-			// coonverto para string
-		}
-		// se meu sinal for 0
-		if(pid, SIGUSR1)
-		{
-			// converto para string
-		}
+		character |= (array[i] << (7 - i));
+		i++;
+	}
+	ft_printf("%c", character);
+}
+
+void	receive_signals(int signal)
+{
+	static unsigned int	bit = 0;
+	static unsigned int	array[8];
+
+	if (bit < 8)
+	{
+		if (signal == SIGUSR1)
+			array[bit] = 0;
+		if (signal == SIGUSR2)
+			array[bit] = 1;
+		bit++;
+	}
+
+	if (bit == 8)
+	{
+		convert_char(array);
+		bit = 0;
 	}
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	ft_printf("Welcome to my ganjinho server:");
+	ft_printf("Welcome to ganjinho server:");
+	ft_printf("The server PID is: %d\n", getpid());
+	while (1)
+	{
+		signal(SIGUSR1, receive_signals);
+		signal(SIGUSR2, receive_signals);
+		pause();
+	}
+	return (0);
 }
