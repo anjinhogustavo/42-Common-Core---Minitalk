@@ -47,7 +47,7 @@ void	receive_signals(int signal)
 	}
 }
 
-int	main(int ac, char **av)
+int	main(void)
 {
 	ft_printf("Welcome to ganjinho server:");
 	ft_printf("The server PID is: %d\n", getpid());
