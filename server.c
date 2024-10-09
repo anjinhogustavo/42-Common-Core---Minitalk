@@ -14,9 +14,11 @@
 
 void	convert_char(unsigned int *array)
 {
-	unsigned char	character = 0;
-	int				i = 0;
+	unsigned char	character;
+	int				i;
 
+	character = 0;
+	i = 0;
 	while (i < 8)
 	{
 		character |= (array[i] << (7 - i));
@@ -38,7 +40,6 @@ void	receive_signals(int signal)
 			array[bit] = 1;
 		bit++;
 	}
-
 	if (bit == 8)
 	{
 		convert_char(array);

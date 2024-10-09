@@ -37,7 +37,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	}
 	return (NULL);
 }
-
+/*
 int	main()
 {
     const char	*big = "Gusteivo";
@@ -56,3 +56,4 @@ int	main()
 
     return (0);
 }
+*/

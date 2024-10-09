@@ -23,14 +23,12 @@ void	send_signal(pid_t pid, char *word)
 		bit = 0;
 		while (bit < 8)
 		{
-			// se minha palavra encriptada com bitwise for igual 1 bit envia pra sinal 2
 			if (word[i] >> (7 - bit) & 1)
 				kill(pid, SIGUSR2);
-			// se minha palavra encriptada com bitwise for igual 0 bit envia pra sinal 1
 			else
 				kill(pid, SIGUSR1);
 			bit++;
-			usleep(200); // Aguarda um curto período
+			usleep(100);
 		}
 		i++;
 	}
@@ -40,12 +38,11 @@ int	main(int ac, char **av)
 {
 	pid_t	pid;
 
-	if(ac == 3)
+	if (ac == 3)
 	{
-		pid = ft_atoi(av[1]); // recebe o idprocess (PID = indica processo alvo no sistema)
-		send_signal(pid, av[2]); //mensagem sendo enviada bit a bit
+		pid = ft_atoi(av[1]);
+		send_signal(pid, av[2]);
 	}
 	else
 		ft_printf("ERROR!Number of Arguments not valid!\n");
-		//porque dar erro se for diferente de 3 ? ./a.out PID MENSAGEM
 }

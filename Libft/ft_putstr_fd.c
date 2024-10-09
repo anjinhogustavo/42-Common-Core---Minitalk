@@ -23,7 +23,7 @@ void	ft_putstr_fd(char *s, int fd)
 		i++;
 	}
 }
-
+/*
 int	main()
 {
 	char	*s = "Menzinho!";
@@ -33,4 +33,4 @@ int	main()
 	ft_putstr_fd(s, fd);
 	return (0);
 }
-
+*/
