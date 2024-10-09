@@ -28,7 +28,7 @@ void	send_signal(pid_t pid, char *word)
 			else
 				kill(pid, SIGUSR1);
 			bit++;
-			usleep(100);
+			usleep(125);
 		}
 		i++;
 	}
