@@ -11,51 +11,84 @@
 /* ************************************************************************** */
 
 #include "minitalk.h"
-
-void	convert_char(unsigned int *array)
+static void	append_char(t_list **list, char c)
 {
-	unsigned char	character;
-	int				i;
-
-	character = 0;
-	i = 0;
-	while (i < 8)
+	t_list	*new_node;
+	t_list	*temp;
+	new_node = malloc(sizeof(t_list));
+	if (! new_node)
+		exit(1);
+	new_node->c = c;
+	new_node->next = NULL;
+	if (*list == NULL)
+		*list = new_node;
+	else
 	{
-		character |= (array[i] << (7 - i));
+		temp = *list;
+		while (temp->next != NULL)
+			temp = temp->next;
+		temp->next = new_node;
+	}
+}
+static void	print_free(t_list **list)
+{
+	t_list	*temp;
+	t_list	*next;
+	if (*list == NULL || ((*list)->c == '\0' && (*list)->next == NULL))
+		ft_printf("\n");
+	else
+	{
+		temp = *list;
+		while (temp != NULL)
+		{
+			ft_printf("%c", temp->c);
+			next = temp->next;
+			free(temp);
+			temp = next;
+		}
+		ft_printf("\n");
+	}
+	*list = NULL;
+}
+static void	handler(int signal, siginfo_t *info, void *context)
+{
+	static t_list	*str_list = NULL;
+	static char		c;
+	static int		i;
+	(void)context;
+	if (signal == SIGUSR1 || signal == SIGUSR2)
+	{
+		c = (c << 1) | (signal == SIGUSR2);
 		i++;
-	}
-	ft_printf("%c", character);
-}
-
-void	receive_signals(int signal)
-{
-	static unsigned int	bit = 0;
-	static unsigned int	array[8];
-
-	if (bit < 8)
-	{
-		if (signal == SIGUSR1)
-			array[bit] = 0;
-		if (signal == SIGUSR2)
-			array[bit] = 1;
-		bit++;
-	}
-	if (bit == 8)
-	{
-		convert_char(array);
-		bit = 0;
+		if (i == 8)
+		{
+			append_char(&str_list, c);
+			if (c == '\0')
+			{
+				print_free(&str_list);
+			}
+			c = 0;
+			i = 0;
+		}
+		kill(info->si_pid, SIGUSR1);
 	}
 }
-
-int	main(void)
+int	main(int ac, char **av)
 {
-	ft_printf("Welcome to ganjinho server:");
-	ft_printf("The server PID is: %d\n", getpid());
+	struct sigaction	sh;
+	(void)av;
+	if (ac != 1)
+	{
+		ft_printf("ERROR! The argument number is wrong");
+		return (0);
+	}
+	sh.sa_sigaction = &handler;
+	sigemptyset(&sh.sa_mask);
+	sh.sa_flags = SA_SIGINFO;
+	ft_printf("Server PID: %d\n", getpid());
+	sigaction(SIGUSR1, &sh, NULL);
+	sigaction(SIGUSR2, &sh, NULL);
 	while (1)
-	{
-		signal(SIGUSR1, receive_signals);
-		signal(SIGUSR2, receive_signals);
-		pause();
-	}
+		pause ();
 	return (0);
 }

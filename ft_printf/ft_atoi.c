@@ -1,26 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ganjinho <ganjinho@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-05-09 10:22:36 by ganjinho          #+#    #+#             */
-/*   Updated: 2024-05-09 10:22:36 by ganjinho         ###   ########.fr       */
+/*   Created: 2024-04-24 08:06:34 by ganjinho          #+#    #+#             */
+/*   Updated: 2024-04-24 08:06:34 by ganjinho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "ft_printf.h"
 
-#include "libft.h"
-
-int	ft_lstsize(t_list *lst)
+int	ft_atoi(const char *str)
 {
-	int	i;
+	int	sn;
+	int	res;
 
-	i = 0;
-	while (lst)
+	sn = 1;
+	res = 0;
+	while ((*str == ' ' || (*str >= '\t' && *str <= '\r')))
+		str++;
+	if (*str == '+' || *str == '-')
 	{
-		lst = lst->next;
-		i++;
+		if (*str == '-')
+		{
+			sn = -sn;
+		}
+		str++;
 	}
-	return (i);
+	while (*str >= '0' && *str <= '9')
+	{
+		res = ((res * 10) + (*str - '0'));
+		str++;
+	}
+	return (res * sn);
 }

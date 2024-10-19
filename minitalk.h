@@ -17,7 +17,12 @@
 # include <stdio.h>
 # include <signal.h>
 # include <sys/types.h>
-# include "Libft/libft.h"
 # include "ft_printf/ft_printf.h"
+
+typedef struct s_list
+{
+	char			c; // caractere que sera armaz
+	struct s_list	*next; // ponteiro para o prox elemento da lista
+}	t_list;
 
 #endif

@@ -25,5 +25,6 @@ int	ft_usgnbr(unsigned int nb);
 int	ft_putnbr(int nb);
 int	ft_hexadecimal(unsigned long nbr, char str);
 int	ft_pointeradd(unsigned long nbr);
+int	ft_atoi(const char *str);
 
 #endif
