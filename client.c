@@ -47,12 +47,12 @@ int	main(int ac, char **av)
 	i = 0;
 	if (ac != 3)
 	{
-		ft_printf("ERROR! The number of arguments is wrong.");
+		ft_printf("\033[0;31mERROR ARGUMENTS\033[0m\n.");
 		return (1);
 	}
 	server_pid = ft_atoi(av[1]);
 	if (server_pid <= 0)
-		return (ft_printf("Incorrect PID\n"));
+		return (ft_printf("\033[0;31mINCORRET PID\033[0m\n"));
 	while (av[2][i] != '\0')
 	{
 		send_signal(server_pid, av[2][i]);

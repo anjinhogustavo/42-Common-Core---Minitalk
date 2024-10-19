@@ -85,7 +85,8 @@ int	main(int ac, char **av)
 	sh.sa_sigaction = &handler;
 	sigemptyset(&sh.sa_mask);
 	sh.sa_flags = SA_SIGINFO;
-	ft_printf("Server PID: %d\n", getpid());
+	ft_printf("\033[0;32mWelcom to ganjinho server:\n");
+	ft_printf("\033[0;32mServer started with PID %d\n", getpid());
 	sigaction(SIGUSR1, &sh, NULL);
 	sigaction(SIGUSR2, &sh, NULL);
 	while (1)
