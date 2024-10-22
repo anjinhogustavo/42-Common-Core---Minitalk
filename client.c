@@ -11,15 +11,22 @@
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
 int	g_received;
+
 void	handler(int sig)
 {
 	if (sig == SIGUSR1)
+	{
 		g_received = 1;
+		ft_printf("\033[0;32mMensagem recebida pelo servidor\033[0m\n");
+	}
 }
+
 static void	send_signal(int pid, unsigned char c)
 {
 	int	bit;
+
 	bit = 7;
 	while (bit >= 0)
 	{
@@ -40,14 +47,16 @@ static void	send_signal(int pid, unsigned char c)
 			pause();
 	}
 }
+
 int	main(int ac, char **av)
 {
 	int	i;
 	int	server_pid;
+
 	i = 0;
 	if (ac != 3)
 	{
-		ft_printf("\033[0;31mERROR ARGUMENTS\033[0m\n.");
+		ft_printf("\033[0;31mERROR ARGUMENTS\033[0m\n");
 		return (1);
 	}
 	server_pid = ft_atoi(av[1]);

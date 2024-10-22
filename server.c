@@ -11,10 +11,12 @@
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
 static void	append_char(t_list **list, char c)
 {
 	t_list	*new_node;
 	t_list	*temp;
+
 	new_node = malloc(sizeof(t_list));
 	if (! new_node)
 		exit(1);
@@ -30,10 +32,12 @@ static void	append_char(t_list **list, char c)
 		temp->next = new_node;
 	}
 }
+
 static void	print_free(t_list **list)
 {
 	t_list	*temp;
 	t_list	*next;
+
 	if (*list == NULL || ((*list)->c == '\0' && (*list)->next == NULL))
 		ft_printf("\n");
 	else
@@ -50,11 +54,13 @@ static void	print_free(t_list **list)
 	}
 	*list = NULL;
 }
+
 static void	handler(int signal, siginfo_t *info, void *context)
 {
 	static t_list	*str_list = NULL;
 	static char		c;
 	static int		i;
+
 	(void)context;
 	if (signal == SIGUSR1 || signal == SIGUSR2)
 	{
@@ -73,9 +79,11 @@ static void	handler(int signal, siginfo_t *info, void *context)
 		kill(info->si_pid, SIGUSR1);
 	}
 }
+
 int	main(int ac, char **av)
 {
 	struct sigaction	sh;
+
 	(void)av;
 	if (ac != 1)
 	{
